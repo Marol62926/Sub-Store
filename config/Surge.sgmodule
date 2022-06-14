@@ -1,11 +1,12 @@
 #!name=Sub-Store
-#!desc=高级订阅管理工具 @Peng-YM
+#!desc=高级订阅管理工具
+
 [MITM]
 hostname=%APPEND% sub.store
 
 [Rule]
-DOMAIN-SUFFIX,sub-store.vercel.app,DIRECT
-DOMAIN-SUFFIX,sub.store,DIRECT
+DOMAIN-SUFFIX,sub-store.vercel.app,𝑺𝒆𝒍𝒆𝒄𝒕
+DOMAIN-SUFFIX,sub.store,𝑺𝒆𝒍𝒆𝒄𝒕
 
 [Script]
 Sub-Store = type=http-request,pattern=^https?:\/\/sub\.store,script-path=https://raw.githubusercontent.com/Marol62926/Sub-Store/master/backend/sub-store.min.js,requires-body=true,timeout=120,max-size=131072
