@@ -3,10 +3,10 @@ import {
     GIST_BACKUP_KEY,
     GIST_BACKUP_FILE_NAME,
 } from './constants';
-import { ENV, HTTP } from '../vendor/open-api';
-import express from '../vendor/express';
-import Gist from '../utils/gist';
-import $ from '../core/app';
+import { ENV, HTTP } from '@/vendor/open-api';
+import express from '@/vendor/express';
+import Gist from '@/utils/gist';
+import $ from '@/core/app';
 
 import registerSubscriptionRoutes from './subscriptions';
 import registerCollectionRoutes from './collections';
@@ -26,6 +26,17 @@ export default function serve() {
     $app.get('/api/utils/IP_API/:server', IP_API); // IP-API reverse proxy
     $app.get('/api/utils/env', getEnv); // get runtime environment
     $app.get('/api/utils/backup', gistBackup); // gist backup actions
+
+    // Storage management
+    $app.route('/api/storage')
+        .get((req, res) => {
+            res.json($.read('#sub-store'));
+        })
+        .post((req, res) => {
+            const data = req.body;
+            $.write(JSON.stringify(data), '#sub-store');
+            res.end();
+        });
 
     // Redirect sub.store to vercel webpage
     $app.get('/', async (req, res) => {
